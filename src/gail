@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+#gail -t template directory -c template
+#gail --help
+
+
+help() {
+	echo -e "\n\nusage: gail <template_name>  <target_dir>"
+	echo -e '\t\trefer to $HOME/.gail for templates'
+	echo -e "\t\t<target_dir> defaults to the current directory if empty. "
+}
+
+#Validate Parameters
+if [[ -z "$1" ]];
+then
+	echo "No param found"
+	help
+	exit 1
+fi
+
+if [[ -z "${2}" ]]; 
+then
+	TARGET_DIR="."
+else
+	TARGET_DIR=${2}
+fi
+
+
+
+
+
+TEMPLATE_DIR_PATH=$HOME/.gail/$1
+
+if [[ ! -d "${TEMPLATE_DIR_PATH}" ]];
+then
+	echo "A valid template was not found"
+	help
+	exit 1
+fi
+
+
+#Test target directory and create
+if [[ ! -d "${TARGET_DIR}" ]];
+then
+	echo "Making ${TARGET_DIR}"
+	mkdir "${TARGET_DIR}"
+fi
+
+
+echo "${TEMPLATE_DIR_PATH}/*" "${TARGET_DIR}"
+#cp -R "${TEMPLATE_DIR_PATH}/*" "${TARGET_DIR}"
+
