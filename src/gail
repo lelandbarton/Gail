@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-#gail -t template directory -c template
-#gail --help
+set -e
 
 
 help() {
@@ -27,9 +26,18 @@ fi
 
 
 
+if [[ "x" = "x${GAIL_HOME}" ]]
+then
+		TEMPLATE_DIR_PATH=$HOME/.gail/templates$1
+else
+		TEMPLATE_DIR_PATH=$GAIL_HOME/templates/$1
+fi
 
 
-TEMPLATE_DIR_PATH=$HOME/.gail/$1
+echo "${TEMPLATE_DIR_PATH}"
+	
+
+
 
 if [[ ! -d "${TEMPLATE_DIR_PATH}" ]];
 then
